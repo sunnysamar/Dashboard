@@ -1,0 +1,146 @@
+/* Enter your custom styles here */
+.equalColumns .columns {
+	min-height: 200px;
+}
+
+.equalColumns .columns .sapMFlexItem {
+	padding: 0.5rem;
+}
+/* styles.css */
+.boldTitle .sapUiObjectListItemtitle {
+	font-weight: bold;
+  }
+
+
+ .footer {
+    text-align: center !important;
+    padding: 1em !important;
+}
+.footerText {
+    font-family: 'AJMN', sans-serif; /* Use your custom font */
+    font-size: xx-small !important; /* Adjust the size as needed */
+    text-align: center !important;; /* Center align text */
+    margin: 0; /* Remove default margins */
+    width: 100%; /* Ensure it takes the full width of the card */
+    justify-content: center !important;; /* Center horizontally */
+    text-align: center !important;; 
+}
+.sapFDynamicPageContent .sapFDynamicPageAlignContent {
+    margin-left: -2.5rem !important;
+    margin-right: -2.5rem !important;
+}
+
+.cardContent {
+	flex: 1 !important
+}
+.sapMNCIndScale.sapMNCSmallFontSize {
+    height: 1.937rem !important;
+    padding: 0 0 0.313rem 0.5rem !important;
+}
+
+/* Center the entire card header */
+.sapFCard .sapFCardHeader {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    text-align: center; /* Center text alignment */
+}
+
+/* Center the title text and ensure proper handling of clamping */
+.sapFCard .sapFCardHeader .sapMText {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    text-align: center; /* Ensure text alignment is centered */
+    margin: 0 auto; /* Center title with margin auto */
+    max-width: 100%; /* Ensure it fits within the header */
+    overflow: hidden; /* Handle overflow if necessary */
+}
+
+/* Override clamping styles if needed */
+.sapFCard .sapFCardHeader .sapMTextMaxLine {
+    -webkit-line-clamp: none; /* Remove clamping */
+    line-clamp: none; /* Remove clamping */
+}
+
+.sapMNCScale {
+    font-size: 32px; /* Increase the font size */
+    font-weight: bold; /* Optional: make the font weight consistent */
+    margin: 0; /* Remove margin if needed */
+    line-height: 0; /* Ensure consistent line height */
+}
+
+/* Container for the numeric content and scale */
+.sapMNCValue {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items if needed */
+}
+
+/* Style for the numeric value */
+.sapMNCLargeFontSize {
+    font-size: 24px; /* Adjust font size */
+    font-weight: bold; /* Adjust font weight */
+    margin: 0; /* Remove margin */
+    line-height: 1; /* Ensure line-height is consistent */
+}
+
+/* Style for the percentage symbol */
+.sapMNCIndScale .sapMNCLargeFontSize {
+    font-size: 24px; /* Match font size of numeric value */
+    font-weight: bold; /* Match font weight of numeric value */
+    margin: 0; /* Remove margin */
+    line-height: 1; /* Ensure line-height is consistent */
+}
+
+/* Ensure the HBox uses flexbox for alignment */
+.centeredHBox {
+    display: flex;
+    justify-content: center; /* Center content horizontally within HBox */
+    align-items: center; /* Center content vertically within HBox */
+}
+/* Ensure the DatePicker has the correct width */
+
+/* Ensure the container of the DatePicker has the correct width */
+#container-dsb\\.com\\.zcdashboard---Main--d1 {
+    width: 10px !important; /* Force width to 50px */
+    display: inline-block; /* Ensure it respects width constraints */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+/* Ensure the inner input field respects container width */
+#container-dsb\\.com\\.zcdashboard---Main--d1-inner {
+    width: 100% !important; /* Ensure inner input takes the full width of the container */
+}
+
+/* Ensure the DatePicker content wrapper does not interfere */
+#container-dsb\\.com\\.zcdashboard---Main--d1-content {
+    width: 100% !important; /* Ensure content wrapper takes full width of the container */
+}
+.noBackgroundCls {
+    background: none;
+}
+
+.titleColorCls {
+    color: #1d5ca6;
+}
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/SAP/PUBLIC/Fonts/AJMN.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/SAP/PUBLIC/Fonts/AJMN.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sapMBtnBase {
+    position: relative;
+    border: none;
+    background: transparent;
+}

@@ -1,0 +1,598 @@
+<mvc:View controllerName="dsb.com.zcdashboard.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:chart="sap.suite.ui.commons"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:vk="sap.ui.vk"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:card="sap.f.cards"
+    xmlns:l="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:vizData="sap.viz.ui5.data" height="100%">
+    <f:DynamicPage id="dp1" class="sapUiSizeCompact" fitContent="true" stickySubheaderProvider="iconTabBar">
+        <f:header>
+            <f:DynamicPageHeader id="dph1">
+                <f:content  >
+                    <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".searchKPIData" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad" showFilterConfiguration="false" filterContainerWidth="140px">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem id="fg1" name="Administration" label="Administration" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox id="cb1" selectedKey="{Data>/AdminFilter}" enabled="{Data>/AdminEnabled}" items="{Data>/Administrations}" selectionChange="onGroupcodechange">
+                                        <core:Item id="ci1" key="{Data>Grp}" text="{Data>GrpText}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem id="fg2" name="Departments" label="Departments" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox id="cb2" selectedKey="{Data>/DeptFilter}" enabled="{Data>/DeptEnabledd}" items="{Data>/Departments}" selectionChange="onDeptcodechange">
+                                        <core:Item id="ci2" key="{Data>Dept}" text="{Data>Dept_Text}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem id="fg3" name="Sections" label="Sections" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox id="cb3" selectedKey="{Data>/SectFilter}" enabled="{Data>/SectEnabled}" items="{Data>/Sections}" selectionChange="onSectcodechange">
+                                        <core:Item id="ci3" key="{Data>Sect}" text="{Data>SectText}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem id="fg7" name="Company Code" label="Company Code" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox id="cb7" selectedKey="{Data>/CompanyFilter}" enabled="{Data>/CompanyEnabled}" items="{Data>/Companycode}" selectionChange="onCompanycodeChange">
+                                        <core:Item id="ci7" key="{Data>Bukrs}" text="{Data>Butxt}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem id="fg8" name="Cost Center" label="Cost Center" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox id="cb8" selectedKeys="{Data>/CostFilter}" enabled="{Data>/CostEnabled}" items="{Data>/Costcenter}">
+                                        <core:Item id="ci8" key="{Data>Kostl}" text="{Data>Ltext}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <!--   <fb:FilterGroupItem id="fg4" name="ContractType" label="Contract Type" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox id="cb4" selectedKey="{Data>/ContTypFilter}" enabled="{Data>/ConTypEnabled}" items="{Data>/ContactTypes}">
+                                        <core:Item id="ci4" key="{Data>Persk}" text="{Data>Cont_text}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem> -->
+                            <fb:FilterGroupItem id="fg5" name="FromDate" label="From Date" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control >
+                                    <DatePicker id="d1" value="{
+						'path': 'Data>/FromDateFilter',
+						'type': 'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'MMM-y'
+						}}" placeholder="Enter From Date" enabled="true" required="true" width="1px" change="onFromDateChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem id="fg6" name="ToDate" label="To Date" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <DatePicker id="d2" value="{'path': 'Data>/ToDateFilter','type': 'sap.ui.model.type.Date','formatOptions': {'pattern': 'MMM-y'}}" placeholder="Enter To Date" required="true" enabled="true" change="onToDateChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+
+
+
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+
+            <!-- <l:Grid id="ig1" defaultSpan="L3 M6 S6" containerQuery="true"> -->
+            <VBox>
+                <VBox id="sMainVBoxCls" class="sapFDynamicPageAlignContent  columns equalColumns">
+                    <Toolbar class="noBackgroundCls" style="Clear">
+                        <ToolbarSpacer/>
+                        <Title class="titleColorCls" text="Key Figures" titleStyle="H3" level="H2"/>
+                        <ToolbarSpacer/>
+                    </Toolbar>
+
+                    <!-- <l:FixFlex> -->
+
+                    <!-- <l:flexContent> -->
+
+                    <!-- </l:flexContent> -->
+                    <!-- </l:FixFlex> -->
+
+                    <l:Grid hSpacing="1" vSpacing="1" id="g1" class="sapUiSmallMargin columns equalColumns">
+                        <!-- First HBox containing two VBoxes -->
+
+
+
+
+                        <f:Card id="c0">
+
+                            <f:header>
+                                <card:Header id="ch8" title="Total Employees" />
+                            </f:header>
+                            <f:content>
+                                <VBox width="100%" id="vbox1">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List id="l0" items="{Data>/EmpKPIData}">
+                                        <ObjectListItem id="l8obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+                                    </List>
+                                    <!-- </ScrollContainer> -->
+                                    <Text id="t1.1" class="footerText" text="Employees" wrapping="true" />
+                                </VBox>
+
+
+
+
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+                        <f:Card id="c1" width="100%">
+                            <f:header>
+                                <card:Header title="Headcount by Contract" id="ch1" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx1" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List updateFinished="onListUpdateFinished" width="100%" id="l1" items="{Data>/ContractTypeKPIData}">
+
+                                        <ObjectListItem id="l1obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+
+                                    </List>
+                                    <Text id="t01" class="footerText" text="" wrapping="true" />
+
+                                    <!-- </ScrollContainer> -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+
+                        <f:Card id="c2">
+                            <f:header>
+                                <card:Header id="ch2" title="Headcount by Location" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx2" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List items="{Data>/LocationKPIData}" id="l2">
+                                        <ObjectListItem id="l2obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+                                    </List>
+                                    <Text class="footerText" text="" wrapping="true" />
+
+                                    <!-- </ScrollContainer> -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+
+
+                        <f:Card id="c3">
+                            <f:header>
+                                <card:Header id="ch3" title="Headcount by Gender" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx3" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List id="l3" items="{Data>/GenderKPIData}">
+                                        <ObjectListItem id="l3obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+                                    </List>
+                                    <Text class="footerText" text="" wrapping="true" />
+
+                                    <!-- </ScrollContainer> -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+
+                        <!-- Another HBox for additional layout -->
+
+
+                        <f:Card id="c4">
+                            <f:header>
+                                <card:Header id="ch4" title="Employee Turn Over Rate" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx4" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <VBox id="vbx41" class="cardContent">
+                                        <!-- <Label text="{Data>/EmpTData/0/value}" class="sapUiLargeMarginBegin" design="Bold" /> -->
+                                        <HBox id="hbx4" class="centeredHBox">
+                                            <NumericContent valueColor="Good" value="{Data>/EmpTData/0/value}" scale="%" truncateValueTo="4" />
+                                        </HBox>
+                                        <!-- <List id="l4" items="{Data>/EmpTData}" width="100%" class="sap">
+                                    <ObjectListItem number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}" id="l4obj" type="Active">
+                                   
+        
+                                    </ObjectListItem>
+                                </List> -->
+
+                                    </VBox>
+                                    <VBox >
+
+
+
+                                        <!-- <Toolbar id="tb1"> -->
+
+
+
+                                        <Text id="t4" class="footerText" text="Percentage of employees leaving within the period" wrapping="true" />
+                                    </VBox>
+                                    <!-- Add more footer content if needed -->
+                                    <!-- </Toolbar> -->
+                                    <!-- </ScrollContainer>                      -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+                        <f:Card id="c5">
+                            <f:header>
+                                <card:Header title="Procurement" id="ch5" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx5" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List id="l5" items="{Data>/PrData}">
+                                        <ObjectListItem id="l5obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+                                    </List>
+                                    <Text id="t5.1" class="footerText" text="Count" wrapping="true" />
+                                    <!-- </ScrollContainer> -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+                        <f:Card id="c6">
+                            <f:header>
+                                <card:Header id="ch6" title="Budget" />
+                            </f:header>
+                            <f:content>
+
+                                <VBox width="100%" id="vbx6">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List id="l6" items="{Data>/BudgetData}">
+                                        <ObjectListItem id="l6obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+
+                                    </List>
+                                    <Text id="t6.1" class="footerText" text="USD" wrapping="true" />
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+                        <f:Card id="c7">
+                            <f:header>
+                                <card:Header id="ch7" title="Budget By Type" />
+                            </f:header>
+                            <f:content>
+                                <VBox id="vbx7" width="100%">
+                                    <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                                    <List id="l7" items="{Data>/BudgettypeData}">
+                                        <ObjectListItem id="l7obj" title="{Data>text}" type="Active" number="{
+				parts:[{path:'Data>value'}],
+				formatOptions: {showMeasure: false}
+			}">
+                                        </ObjectListItem>
+                                    </List>
+                                    <Text id="t7.1" class="footerText" text="USD" wrapping="true" />
+                                    <!-- </ScrollContainer> -->
+                                </VBox>
+                            </f:content>
+                            <!-- <f:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0" />
+						</f:layoutData> -->
+                        </f:Card>
+
+                    </l:Grid>
+                    <Toolbar class="noBackgroundCls sapUiSmallMarginTop" style="Clear">
+                        <ToolbarSpacer/>
+                        <Title class="titleColorCls" text="Head Count" titleStyle="H3" level="H2"/>
+                        <ToolbarSpacer/>
+                    </Toolbar>
+                    <l:Grid id="chartGrid" defaultSpan="L6 M6 S12" class="sapUiSmallMarginBeginEnd sapUiSmallMargin" hSpacing="1">
+
+                        <!-- <ScrollContainer height="100%" width="100%" vertical="true" focusable="true"> -->
+                        <chart:ChartContainer showLegend="false" autoAdjustHeight="true" id="chartContainer" showFullScreen="true">
+                            <chart:toolbar>
+                                <OverflowToolbar id="appToolbar">
+                                    <ToolbarSpacer/>
+
+                                    <SegmentedButton width="210px" id="sSegBtnId" selectedKey="group">
+                                        <items>
+                                            <SegmentedButtonItem key="group" press="onGroupPress" text="Group" icon="sap-icon://group" />
+                                            <SegmentedButtonItem key="ungroup" press="onUnGroupPress" text="Ungroup" icon="sap-icon://collaborate" />
+                                        </items>
+                                    </SegmentedButton>
+                                    <MenuButton tooltip="Export" type="Unstyled"  buttonMode="Regular" icon="sap-icon://menu2">
+                                        <menu>
+                                            <Menu>
+                                                <MenuItem text="Export csv" icon="sap-icon://excel-attachment" press="onExportPress">
+                                                    <customData>
+                                                        <core:CustomData key="PosData,Head Count by Position,idDonutChart" value="csv" />
+                                                    </customData>
+                                                </MenuItem>
+                                                <MenuItem text="Export pdf" icon="sap-icon://pdf-attachment" press="onExportPress">
+                                                    <customData>
+                                                        <core:CustomData key="PosData,Head Count by Position,idDonutChart" value="pdf" />
+                                                    </customData>
+                                                </MenuItem>
+
+                                                <MenuItem text="Export jpeg" icon="sap-icon://attachment-photo" press="onExportPress">
+                                                    <customData>
+                                                        <core:CustomData key="PosData,Head Count by Position,idDonutChart" value="image" />
+                                                    </customData>
+                                                </MenuItem>
+
+                                                  <MenuItem text="Print" icon="sap-icon://print" press="onExportPress">
+                                                    <customData>
+                                                        <core:CustomData key="PosData,Head Count by Position,idDonutChart" value="print" />
+                                                    </customData>
+                                                </MenuItem>
+                                            </Menu>
+                                        </menu>
+                                    </MenuButton>
+                                    <chart:ChartContainerToolbarPlaceholder></chart:ChartContainerToolbarPlaceholder>
+                                </OverflowToolbar>
+                            </chart:toolbar>
+                            <!-- <chart:customIcons>
+                                <core:Icon id="customIcon1" src="sap-icon://group" tooltip="Group" press="onGroup"></core:Icon>
+                                <core:Icon id="customIcon2" src="sap-icon://collaborate" tooltip="UnGroup" press="onUngroup"></core:Icon>
+                            </chart:customIcons> -->
+                            <chart:ChartContainerContent id="chtc1" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                <chart:content>
+                                    <viz:VizFrame xmlns="sap.viz" id="idDonutChart" vizType="donut" vizProperties="{plotArea: { drawingEffect: 'glossy' },title:{ text:'Head Count by Position'}}">
+                                        <viz:dataset>
+                                            <vizData:FlattenedDataset id="vizfd1" data="{Data>/PosData}">
+                                                <vizData:dimensions>
+                                                    <vizData:DimensionDefinition id="vizdd1" name="Position" value="{Data>text}"/>
+                                                </vizData:dimensions>
+                                                <vizData:measures>
+                                                    <vizData:MeasureDefinition id="vizmd1" name="Employee Count" value="{Data>value}"/>
+                                                </vizData:measures>
+                                            </vizData:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <vizFeeds:FeedItem id="vizfd11" uid="size" type="Measure" values='Employee Count'/>
+                                            <vizFeeds:FeedItem id="vizfb2" uid="color" type="Dimension" values="Position"/>
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver">
+                                            </viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+
+                                </chart:content>
+                            </chart:ChartContainerContent>
+                        </chart:ChartContainer>
+                        <!-- </ScrollContainer> -->
+
+
+
+
+                        <chart:ChartContainer showLegend="false" autoAdjustHeight="true" id="chartContainer10" showFullScreen="true">
+                            <!-- <chart:layoutData>
+				<l:GridData indent="XL3 L2 M2"/>
+			</chart:layoutData> -->
+                            <chart:customIcons>
+                                <!--  <core:Icon id="customIcon10" src="sap-icon://group" tooltip="Group" press="onGroup">
+                                </core:Icon>
+                                <core:Icon id="customIcon11" src="sap-icon://collaborate" tooltip="UnGroup" press="onUngroup">
+                                </core:Icon> -->
+                            </chart:customIcons>
+                            <chart:ChartContainerContent id="chtc2" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                <chart:content>
+                                    <viz:VizFrame id="idVizFrame10" vizProperties="{plotArea: {colorPalette: ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F6']},title:{ text:'HeadCount by Contract'}}" vizType="bar" uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <vizData:FlattenedDataset id="fd10" data="{Data>/ContractTypeKPIData}">
+                                                <vizData:dimensions>
+                                                    <vizData:DimensionDefinition id="dd10" name="Contract" value="{Data>text}" />
+                                                </vizData:dimensions>
+                                                <vizData:measures>
+                                                    <vizData:MeasureDefinition id="md10" name="Employee Count" value="{Data>value}" />
+
+                                                </vizData:measures>
+                                            </vizData:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <vizFeeds:FeedItem id='valueAxisFeed10' uid="valueAxis" type="Measure" values="Employee Count" />
+                                            <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="Contract" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver10"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </chart:content>
+                            </chart:ChartContainerContent>
+                        </chart:ChartContainer>
+
+
+
+                        <chart:ChartContainer showLegend="false" autoAdjustHeight="true" id="chartContainer11" showFullScreen="true">
+                            <!-- <chart:layoutData>
+				<l:GridData indent="XL3 L2 M2"/>
+			</chart:layoutData> -->
+                            <chart:customIcons>
+                                <!-- <core:Icon id="icon11.1" src="sap-icon://group" tooltip="Group" press="onGroup"></core:Icon>
+                                <core:Icon id="Icon11.2" src="sap-icon://collaborate" tooltip="UnGroup" press="onUngroup"></core:Icon> -->
+                            </chart:customIcons>
+                            <chart:ChartContainerContent id="chtc11" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                <chart:content>
+                                    <viz:VizFrame id="idVizFrame11" vizType="column">
+                                        <viz:dataset>
+                                            <vizData:FlattenedDataset data="{Data>/LocationKPIData}">
+                                                <vizData:dimensions>
+                                                    <vizData:DimensionDefinition name="Org unit" value="{Data>text}" />
+                                                </vizData:dimensions>
+                                                <vizData:measures>
+                                                    <vizData:MeasureDefinition name="Employee Count" value="{Data>value}" />
+
+                                                </vizData:measures>
+                                            </vizData:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <vizFeeds:FeedItem id='valueAxisFeed11' uid="valueAxis" type="Measure" values="Employee Count" />
+                                            <vizFeeds:FeedItem id='categoryAxisFeed11' uid="categoryAxis" type="Dimension" values="Org unit" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver11"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </chart:content>
+                            </chart:ChartContainerContent>
+                        </chart:ChartContainer>
+                        <!-- </ScrollContainer> -->
+                        <chart:ChartContainer autoAdjustHeight="true" id="chartContainer12" showFullScreen="true">
+                            <!-- <chart:layoutData>
+				<l:GridData indent="XL3 L2 M2"/>
+			</chart:layoutData> -->
+                            <chart:customIcons>
+
+                            </chart:customIcons>
+                            <chart:ChartContainerContent id="chtc12" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                <chart:content>
+                                    <viz:VizFrame id="idVizFrame12" vizType="line">
+                                        <viz:dataset>
+                                            <vizData:FlattenedDataset data="{Data>/LocationKPIData}">
+                                                <vizData:dimensions>
+                                                    <vizData:DimensionDefinition name="Org unit" value="{Data>text}" />
+                                                </vizData:dimensions>
+                                                <vizData:measures>
+                                                    <vizData:MeasureDefinition name="Employee Count" value="{Data>value}" />
+
+                                                </vizData:measures>
+                                            </vizData:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <vizFeeds:FeedItem id='valueAxisFeed12' uid="valueAxis" type="Measure" values="Employee Count" />
+                                            <vizFeeds:FeedItem id='categoryAxisFeed12' uid="categoryAxis" type="Dimension" values="Org unit" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver12"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </chart:content>
+                            </chart:ChartContainerContent>
+                        </chart:ChartContainer>
+                        <chart:ChartContainer showLegend="false" autoAdjustHeight="true" id="chartContainer13" showFullScreen="true">
+
+                            <chart:customIcons>
+
+                            </chart:customIcons>
+                            <chart:ChartContainerContent id="chtc13" icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+                                <chart:content>
+                                    <viz:VizFrame id="idVizFrame13" vizType="line">
+                                        <viz:dataset>
+                                            <vizData:FlattenedDataset data="{Data>/LocationKPIData}">
+                                                <vizData:dimensions>
+                                                    <vizData:DimensionDefinition name="Org unit" value="{Data>text}" />
+                                                </vizData:dimensions>
+                                                <vizData:measures>
+                                                    <vizData:MeasureDefinition name="Employee Count" value="{Data>value}" />
+
+                                                </vizData:measures>
+                                            </vizData:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <vizFeeds:FeedItem id='valueAxisFeed13' uid="valueAxis" type="Measure" values="Employee Count" />
+                                            <vizFeeds:FeedItem id='categoryAxisFeed13' uid="categoryAxis" type="Dimension" values="Org unit" />
+                                        </viz:feeds>
+                                        <viz:dependents>
+                                            <viz:Popover id="idPopOver13"></viz:Popover>
+                                        </viz:dependents>
+                                    </viz:VizFrame>
+                                </chart:content>
+                            </chart:ChartContainerContent>
+                        </chart:ChartContainer>
+
+                        <f:Card id="sMapCardId">
+                            <f:header>
+                                <card:Header title="Head Count by Nationality" />
+                            </f:header>
+                            <f:content>
+                                <Panel id="sMapPanel">
+                                    <headerToolbar>
+                                        <Toolbar>
+
+                                            <ToolbarSpacer/>
+                                            <Button id="btnLegend" icon="sap-icon://legend" press="onPressLegend" tooltip="Hide legend" />
+                                            <Button id="btnResize" icon="sap-icon://resize" press="onPressResize" tooltip="Minimize" />
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <content>
+                                        <vbm:AnalyticMap openWindow="onOpenDetail" width="auto" height="429px" enableAnimation="true" id="vbi"
+                                            xmlns:l="sap.ui.layout" regionClick="onRegionClick" regionContextMenu="onRegionContextMenu">
+                                            <vbm:vos>
+                                                <vbm:Circles items="{Data>/Countries}" click="onClickItem" contextMenu="onContextMenuItem">
+                                                    <vbm:Circle radius="10" position="{Data>position}" tooltip="{Data>legend}" color="{Data>color}" colorBorder="{Data>legend}" hotDeltaColor="{Data>legend}" click="onClickCircle" contextMenu="onContextMenuCircle" />
+                                                </vbm:Circles>
+
+                                                <vbm:GeoCircles items="{Data>/Countries}" click="onClickItem" contextMenu="onContextMenuItem">
+                                                    <vbm:GeoCircle position="{Data>position}" tooltip="{Data>legend}" color="rgba(92,186,230,0.6)" colorBorder="rgb(255,255,255)" hotDeltaColor="rgba(92,186,230,0.8)" click="onClickCircle" contextMenu="onContextMenuCircle" />
+                                                </vbm:GeoCircles>
+                                                <!-- HeatMap Overlay -->
+              
+                                            </vbm:vos>
+                                            <vbm:legend>
+                                                <vbm:Legend items="{Data>/Countries}" id="legend" caption="Legend">
+                                                    <vbm:LegendItem text="{Data>legend}" color="{Data>color}" />
+                                                </vbm:Legend>
+                                            </vbm:legend>
+                                        </vbm:AnalyticMap>
+                                    </content>
+                                </Panel>
+                            </f:content>
+                        </f:Card>
+                    </l:Grid>
+
+                </VBox>
+                <VBox id="showMap">
+
+                </VBox>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
